@@ -3,29 +3,32 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package e_commerce_desktop_platform;
-import java.awt.*;
+
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
+
 /**
  *
  * @author Himanshu
  */
 public class Collection extends javax.swing.JFrame {
+
     Connection con;
-    PreparedStatement pst1;
+    PreparedStatement pst;
     ResultSet rs;
+
     /**
      * Creates new form Collection
      */
     public Collection() {
         initComponents();
-                initialize();
+        initialize();
         con = JavaDatabase.ConnectToDB();
     }
-    
-        private void initialize() {
+
+    private void initialize() {
         setTitle("Collection | DRIP");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setSize(1024, 768);
@@ -47,6 +50,7 @@ public class Collection extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        updateNoOfProducts = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -108,6 +112,20 @@ public class Collection extends javax.swing.JFrame {
         });
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 120, -1));
 
+        updateNoOfProducts.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        updateNoOfProducts.setEnabled(false);
+        updateNoOfProducts.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                updateNoOfProductsMouseMoved(evt);
+            }
+        });
+        updateNoOfProducts.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateNoOfProductsMouseClicked(evt);
+            }
+        });
+        jPanel2.add(updateNoOfProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, 30, 30));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 1040, 70));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -159,36 +177,36 @@ public class Collection extends javax.swing.JFrame {
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
-                dispose();
+        dispose();
         Testimonal testimonal = new Testimonal();
         testimonal.show();
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         // TODO add your handling code here:
-                dispose();
-            About about = new About();
-            about.show();
+        dispose();
+        About about = new About();
+        about.show();
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // TODO add your handling code here:
-                dispose();
+        dispose();
         My_cart my_cart = new My_cart();
         my_cart.show();
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // TODO add your handling code here:
-                dispose();
-Sign_in sign_in = new Sign_in();
+        dispose();
+        Sign_in sign_in = new Sign_in();
         sign_in.show();
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         // TODO add your handling code here:
-                dispose();
-                Collection collection = new Collection();
+        dispose();
+        Collection collection = new Collection();
         collection.show();
     }//GEN-LAST:event_jLabel6MouseClicked
 
@@ -196,9 +214,9 @@ Sign_in sign_in = new Sign_in();
         // TODO add your handling code here:
         try {
             String sqlInsert = "INSERT INTO my_cart (Product_Name, Product_Price) VALUES ('Street Jacket','46')";
-                    pst1 = con.prepareStatement(sqlInsert);
-                    pst1.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "Item added to cart!");
+            pst = con.prepareStatement(sqlInsert);
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Item added to cart!");
         } catch (SQLException ex) {
             Logger.getLogger(Collection.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -208,9 +226,9 @@ Sign_in sign_in = new Sign_in();
         // TODO add your handling code here:
         try {
             String sqlInsert = "INSERT INTO my_cart (Product_Name, Product_Price) VALUES ('Street Sneaker','124')";
-                    pst1 = con.prepareStatement(sqlInsert);
-                    pst1.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "Item added to cart!");
+            pst = con.prepareStatement(sqlInsert);
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Item added to cart!");
         } catch (SQLException ex) {
             Logger.getLogger(Collection.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -220,13 +238,51 @@ Sign_in sign_in = new Sign_in();
         // TODO add your handling code here:
         try {
             String sqlInsert = "INSERT INTO my_cart (Product_Name, Product_Price) VALUES ('Street T-Shirt','26')";
-                    pst1 = con.prepareStatement(sqlInsert);
-                    pst1.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "Item added to cart!");
+            pst = con.prepareStatement(sqlInsert);
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Item added to cart!");
         } catch (SQLException ex) {
             Logger.getLogger(Collection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_addToCartThreeActionPerformed
+
+    private void updateNoOfProductsMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateNoOfProductsMouseMoved
+        // TODO add your handling code here:
+        try {
+            // Fetch the count of items in the database
+            String countQuery = "SELECT COUNT(*) FROM my_cart";
+            PreparedStatement countStatement = con.prepareStatement(countQuery);
+            ResultSet countResult = countStatement.executeQuery();
+            countResult.next();
+            int itemCount = countResult.getInt(1);
+
+            // Set the count in the JLabel 'noOfProducts'
+            updateNoOfProducts.setText(String.valueOf(itemCount));
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        } finally {
+            try {
+                // Close resources in the finally block
+                if (pst != null) {
+                    pst.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                // Handle exceptions while closing resources if necessary
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        }
+    }//GEN-LAST:event_updateNoOfProductsMouseMoved
+
+    private void updateNoOfProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateNoOfProductsMouseClicked
+        // TODO add your handling code here:
+        dispose();
+        My_cart my_cart = new My_cart();
+        my_cart.show();
+    }//GEN-LAST:event_updateNoOfProductsMouseClicked
 
     /**
      * @param args the command line arguments
@@ -277,5 +333,6 @@ Sign_in sign_in = new Sign_in();
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel updateNoOfProducts;
     // End of variables declaration//GEN-END:variables
 }

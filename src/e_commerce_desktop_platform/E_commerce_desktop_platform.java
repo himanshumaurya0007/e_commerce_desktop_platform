@@ -16,7 +16,9 @@ public class E_commerce_desktop_platform {
     public static void main(String[] args) {
         // TODO code application logic here
         Sign_in signIn = new Sign_in();
-        signIn.show();
+//        signIn.show();
+        signIn.setVisible(true);
+
     }
 
 }

@@ -4,7 +4,6 @@
  */
 package e_commerce_desktop_platform;
 
-import java.awt.HeadlessException;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.JOptionPane;
@@ -132,36 +131,57 @@ public class Sign_in extends javax.swing.JFrame {
 
     private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
         // TODO add your handling code here:
+//        String sql = "SELECT * FROM sign_in WHERE Username = ? AND Password = ?";
+//        try {
+//            pst = con.prepareStatement(sql);
+//            pst.setString(1, tfUsername.getText());
+//            pst.setString(2, new String(pfPassword.getPassword()));
+//            rs = pst.executeQuery();
+//            JOptionPane.showMessageDialog(null, "Sign in successful!");
+//            if (rs.next()) {
+//                rs.close();
+//                pst.close();
+//                dispose(); // Close the current JFrame
+//                About about = new About();
+//                about.show();
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Incorrect Username & Password!");
+//            }
+//        } catch (SQLException e) {
+//            JOptionPane.showMessageDialog(null, e);
+//        } finally {
+//            try {
+//                if (rs != null) {
+//                    rs.close();
+//                }
+//                if (pst != null) {
+//                    pst.close();
+//                }
+//            } catch (SQLException e) {
+//                // Handle the exception if needed
+//            }
+//        }
+
         String sql = "SELECT * FROM sign_in WHERE Username = ? AND Password = ?";
-        try {
-            pst = con.prepareStatement(sql);
+        try (PreparedStatement pst = con.prepareStatement(sql)) {
             pst.setString(1, tfUsername.getText());
             pst.setString(2, new String(pfPassword.getPassword()));
-            rs = pst.executeQuery();
-            JOptionPane.showMessageDialog(null, "Sign in successful!");
-            if (rs.next()) {
-                rs.close();
-                pst.close();
-                dispose(); // Close the current JFrame
-                About about = new About();
-                about.show();
-            } else {
-                JOptionPane.showMessageDialog(null, "Incorrect Username & Password!");
+
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    JOptionPane.showMessageDialog(null, "Sign in successful!");
+                    dispose(); // Close the current JFrame
+                    About about = new About();
+                    about.show();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Incorrect Username & Password!");
+                }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (pst != null) {
-                    pst.close();
-                }
-            } catch (SQLException e) {
-                // Handle the exception if needed
-            }
+            JOptionPane.showMessageDialog(null, "Error during sign-in: " + e.getMessage());
+            e.printStackTrace(); // This will print detailed error information to the console
         }
+
     }//GEN-LAST:event_btnSignInActionPerformed
 
     private void lbCreateNewOneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCreateNewOneMouseClicked

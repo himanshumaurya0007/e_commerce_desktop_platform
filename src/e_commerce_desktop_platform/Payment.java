@@ -6,47 +6,31 @@ package e_commerce_desktop_platform;
 
 import java.sql.*;
 import javax.swing.*;
-import net.proteanit.sql.DbUtils;
 
 /**
  *
  * @author Himanshu
  */
-public class My_cart extends javax.swing.JFrame {
+public class Payment extends javax.swing.JFrame {
 
     Connection con;
     PreparedStatement pst;
     ResultSet rs;
 
     /**
-     * Creates new form My_cart
+     * Creates new form payment
      */
-    public My_cart() {
+    public Payment() {
         initComponents();
         initialize();
         con = JavaDatabase.ConnectToDB();
     }
 
     private void initialize() {
-        setTitle("My cart | DRIP");
+        setTitle("Payment | DRIP");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setSize(1024, 768);
         setVisible(true);
-    }
-
-    public final void LoadTableViewMyCartProductLists() {
-//        setSize(1600, 900);
-        try {
-            String sql = "SELECT * FROM my_cart";
-            pst = con.prepareStatement(sql);
-            rs = pst.executeQuery();
-            tableViewMyCartProductLists.setModel(DbUtils.resultSetToTableModel(rs));
-
-            pst.close();
-            rs.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
     }
 
     /**
@@ -58,20 +42,22 @@ public class My_cart extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        PaymentOption = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        updateNoOfProducts = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        updateNoOfProducts = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableViewMyCartProductLists = new javax.swing.JTable();
+        jRadioButton4 = new javax.swing.JRadioButton();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        noOfProducts = new javax.swing.JLabel();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
         jButton2 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -97,19 +83,15 @@ public class My_cart extends javax.swing.JFrame {
         });
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, 100, -1));
 
-        updateNoOfProducts.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        updateNoOfProducts.setEnabled(false);
-        updateNoOfProducts.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                updateNoOfProductsMouseMoved(evt);
-            }
-        });
-        updateNoOfProducts.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cart.png"))); // NOI18N
+        jLabel3.setText("My Cart");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                updateNoOfProductsMouseClicked(evt);
+                jLabel3MouseClicked(evt);
             }
         });
-        jPanel2.add(updateNoOfProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, 30, 30));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 20, 110, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
@@ -128,90 +110,94 @@ public class My_cart extends javax.swing.JFrame {
                 jLabel6MouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 120, -1));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 100, -1));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cart.png"))); // NOI18N
-        jLabel7.setText("My Cart");
-        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel7MouseClicked(evt);
+        updateNoOfProducts.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        updateNoOfProducts.setEnabled(false);
+        updateNoOfProducts.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                updateNoOfProductsMouseMoved(evt);
             }
         });
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 20, 110, -1));
+        updateNoOfProducts.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateNoOfProductsMouseClicked(evt);
+            }
+        });
+        jPanel2.add(updateNoOfProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, 30, 30));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 1040, 70));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tableViewMyCartProductLists.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Id", "Product_Name", "Product_Price"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tableViewMyCartProductLists.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tableViewMyCartProductLists.setRowHeight(30);
-        tableViewMyCartProductLists.setShowHorizontalLines(true);
-        tableViewMyCartProductLists.setShowVerticalLines(true);
-        tableViewMyCartProductLists.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tableViewMyCartProductLists);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 1030, 540));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
-        jLabel5.setText("No of Products:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 560, 170, 40));
-
-        jButton1.setBackground(new java.awt.Color(0, 102, 102));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(102, 255, 255));
-        jButton1.setText("Proceed to payment");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        PaymentOption.add(jRadioButton4);
+        jRadioButton4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jRadioButton4.setText("Cash on delivery");
+        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jRadioButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 560, 270, 40));
+        jPanel1.add(jRadioButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, 240, 30));
 
-        noOfProducts.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        noOfProducts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        noOfProducts.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        noOfProducts.setEnabled(false);
-        noOfProducts.setVerifyInputWhenFocusTarget(false);
-        noOfProducts.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                noOfProductsMouseMoved(evt);
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/DRIP.png"))); // NOI18N
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
             }
         });
-        jPanel1.add(noOfProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 560, 240, 40));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, -40, 430, -1));
 
-        jButton2.setBackground(new java.awt.Color(0, 0, 102));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(51, 51, 255));
-        jButton2.setText("Load Products");
+        PaymentOption.add(jRadioButton2);
+        jRadioButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jRadioButton2.setText("PhonePe");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 240, 30));
+
+        PaymentOption.add(jRadioButton1);
+        jRadioButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jRadioButton1.setSelected(true);
+        jRadioButton1.setText("Google Pay");
+        jPanel1.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 240, 30));
+
+        PaymentOption.add(jRadioButton3);
+        jRadioButton3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jRadioButton3.setText("Paytm");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, 240, 30));
+
+        jButton2.setBackground(new java.awt.Color(0, 0, 0));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(204, 204, 204));
+        jButton2.setText("PAY NOW");
+        jButton2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.lightGray, java.awt.Color.lightGray));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 560, 200, 40));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 260, 50));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 70, 1040, 620));
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel7.setText("Choose Payment Option:");
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 430, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 70, 1050, 620));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -230,12 +216,12 @@ public class My_cart extends javax.swing.JFrame {
         about.show();
     }//GEN-LAST:event_jLabel2MouseClicked
 
-    private void updateNoOfProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateNoOfProductsMouseClicked
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // TODO add your handling code here:
         dispose();
         My_cart my_cart = new My_cart();
         my_cart.show();
-    }//GEN-LAST:event_updateNoOfProductsMouseClicked
+    }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // TODO add your handling code here:
@@ -249,51 +235,7 @@ public class My_cart extends javax.swing.JFrame {
         dispose();
         Collection collection = new Collection();
         collection.show();
-
     }//GEN-LAST:event_jLabel6MouseClicked
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        dispose();
-        Payment payment = new Payment();
-        payment.show();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void noOfProductsMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_noOfProductsMouseMoved
-        // TODO add your handling code here:
-        try {
-            // Fetch the count of items in the database
-            String countQuery = "SELECT COUNT(*) FROM my_cart";
-            PreparedStatement countStatement = con.prepareStatement(countQuery);
-            ResultSet countResult = countStatement.executeQuery();
-            countResult.next();
-            int itemCount = countResult.getInt(1);
-
-            // Set the count in the JLabel 'noOfProducts'
-            noOfProducts.setText("Number of Items: " + itemCount);
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
-        } finally {
-            try {
-                // Close resources in the finally block
-                if (pst != null) {
-                    pst.close();
-                }
-                if (rs != null) {
-                    rs.close();
-                }
-            } catch (SQLException ex) {
-                // Handle exceptions while closing resources if necessary
-                JOptionPane.showMessageDialog(null, ex);
-            }
-        }
-
-    }//GEN-LAST:event_noOfProductsMouseMoved
-
-    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel7MouseClicked
 
     private void updateNoOfProductsMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateNoOfProductsMouseMoved
         // TODO add your handling code here:
@@ -326,10 +268,48 @@ public class My_cart extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_updateNoOfProductsMouseMoved
 
+    private void updateNoOfProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateNoOfProductsMouseClicked
+        // TODO add your handling code here:
+        dispose();
+        My_cart my_cart = new My_cart();
+        my_cart.show();
+    }//GEN-LAST:event_updateNoOfProductsMouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton4ActionPerformed
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        LoadTableViewMyCartProductLists();
+        if (jRadioButton1.isSelected()) {
+            JOptionPane.showMessageDialog(null, "Payment is sucessfully completed using Google Pay!\nThank you :)");
+        } else if (jRadioButton2.isSelected()) {
+            JOptionPane.showMessageDialog(null, "Payment is sucessfully completed using PhonePe!\nThank you :)");
+        } else if (jRadioButton3.isSelected()) {
+            JOptionPane.showMessageDialog(null, "Payment is sucessfully completed using Paytm!\nThank you :)");
+        } else if (jRadioButton4.isSelected()) {
+            JOptionPane.showMessageDialog(null, "Proudct will be shipped at you doorsteps and then payement must be done!\nThank you :)");
+        } else {
+            JOptionPane.showMessageDialog(null, "Error|");
+        }
+
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel7MouseClicked
 
     /**
      * @param args the command line arguments
@@ -345,49 +325,44 @@ public class My_cart extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(My_cart.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            java.util.logging.Logger.getLogger(Payment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(My_cart.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            java.util.logging.Logger.getLogger(Payment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(My_cart.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            java.util.logging.Logger.getLogger(Payment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(My_cart.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Payment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new My_cart().setVisible(true);
+                new Payment().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.ButtonGroup PaymentOption;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    public javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel noOfProducts;
-    private javax.swing.JTable tableViewMyCartProductLists;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JLabel updateNoOfProducts;
     // End of variables declaration//GEN-END:variables
 }

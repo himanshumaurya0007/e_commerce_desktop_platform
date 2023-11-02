@@ -133,6 +133,10 @@ public class Sign_up extends javax.swing.JFrame {
             if (tfName.getText().isEmpty() || tfEmail.getText().isEmpty() || tfUsername.getText().isEmpty()
                     || new String(pfPassword.getPassword()).isEmpty() || new String(pfConfirmPassword.getPassword()).isEmpty()) {
                 JOptionPane.showMessageDialog(null, "All fields are required!");
+            } else if (!tfEmail.getText().contains("@")) {
+                JOptionPane.showMessageDialog(null, "Invalid email address! Please enter a valid email.");
+                tfEmail.setText("");
+                tfEmail.requestFocus();
             } else if (!new String(pfPassword.getPassword()).equals(new String(pfConfirmPassword.getPassword()))) {
                 JOptionPane.showMessageDialog(null, "Password and Confirm Password do not match!");
                 pfPassword.setText("");
@@ -152,6 +156,11 @@ public class Sign_up extends javax.swing.JFrame {
                 tfUsername.requestFocus();
             } else if (new String(pfPassword.getPassword()).length() > 30) {
                 JOptionPane.showMessageDialog(null, "Maximum 45 characters are allowed for Password!");
+                pfPassword.setText("");
+                pfConfirmPassword.setText("");
+                pfPassword.requestFocus();
+            } else if (!new String(pfPassword.getPassword()).matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")) {
+                JOptionPane.showMessageDialog(null, "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 symbol, and 1 number. It should be at least 8 characters long.");
                 pfPassword.setText("");
                 pfConfirmPassword.setText("");
                 pfPassword.requestFocus();
